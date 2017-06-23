@@ -51,3 +51,24 @@ class Ex_2_3_1
     merge(ar_A, p, q, r)
   end
 end
+
+# 2.3-5
+class Ex_2_3_5
+  def binary_search(ar_A, p, q, k)
+    if q - p <= 1
+      return p if ar_A[p] == k
+      return q if ar_A[q] == k
+      return nil
+    end
+
+    r = (p + q) / 2
+    if ar_A[r] == k
+      return r
+    elsif ar_A[r] < k
+      p = r
+    else
+      q = r
+    end
+    binary_search(ar_A, p, q, k)
+  end
+end
