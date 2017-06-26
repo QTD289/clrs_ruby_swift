@@ -111,4 +111,18 @@ end
 
 # 2.3-7
 class Ex237
+  def summable?(ar_a, sum)
+    Ex231.new.merge_sort(ar_a, 0, ar_a.size - 1)
+    first = 0
+    last = ar_a.size - 1
+
+    while ar_a[first] + ar_a[last] != sum
+      first += 1 if ar_a[first] + ar_a[last] < sum
+      last -= 1 if ar_a[first] + ar_a[last] > sum
+      return false if first == last
+    end
+    puts ar_a[first]
+    puts ar_a[last]
+    true
+  end
 end
