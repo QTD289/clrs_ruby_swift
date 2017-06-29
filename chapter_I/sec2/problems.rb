@@ -63,3 +63,19 @@ class P21
     end
   end
 end
+
+# Problem 2-2 - Bubble sort
+class P22
+  def bubble_sort(ar_a)
+    n = ar_a.size
+    (0..n - 2).each do |i|
+      (n - 1).downto(i) do |j|
+        temp = ar_a[j]
+        if ar_a[j - 1] > ar_a[j]
+          ar_a[j] = ar_a[j - 1]
+          ar_a[j - 1] = temp
+        end
+      end
+    end
+  end
+end
