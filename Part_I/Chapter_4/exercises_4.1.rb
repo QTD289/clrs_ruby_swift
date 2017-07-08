@@ -54,5 +54,63 @@ class Ex41
       cross
     end
     # end of 4.1.3
+
+    # 4.1.5 - Linear non-recursive maximum subarray
+    def build_suffix_table(ar_a)
+      ret = []
+      h = {}
+      h[:left] = 0
+      h[:right] = 0
+      h[:sum] = ar_a[0]
+      ret.push(h)
+
+      (1..ar_a.size - 1).each do |i|
+        h = {}
+        if ret[i - 1][:sum] < 0
+          h[:left] = i
+          h[:right] = i
+          h[:sum] = ar_a[i]
+        else
+          h[:left] = ret[i - 1][:left]
+          h[:right] = i
+          h[:sum] = ret[i - 1][:sum] + ar_a[i]
+        end
+        ret.push(h)
+      end
+      ret
+    end
+
+    def linear_max_subarray_v1(ar_a)
+      suffix_ar = build_suffix_table(ar_a)
+      max = suffix_ar[0]
+      (1..suffix_ar.size - 1).each do |i|
+        max = suffix_ar[i] if max[:sum] < suffix_ar[i][:sum]
+      end
+      max
+    end
+
+    def linear_max_subarray_v2(ar_a)
+      left = 0
+      right = 0
+      sum = ar_a[0]
+      temp_sum = 0
+      temp_left = 0
+
+      (0..ar_a.size - 1).each do |i|
+        temp_sum = if ar_a[i] > temp_sum + ar_a[i]
+                     ar_a[i]
+                   else
+                     temp_sum + ar_a[i]
+                   end
+        if temp_sum > sum
+          sum = temp_sum
+          right = i
+          left = temp_left
+        end
+        temp_left = i if temp_sum == ar_a[i]
+      end
+      { left: left, right: right, sum: sum }
+    end
+    # end of 4.1.5
   end
 end
