@@ -55,5 +55,4 @@ class HeapSort
       max_heapify(ar, i)
     end
   end
-
 end
